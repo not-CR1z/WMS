@@ -1,0 +1,46 @@
+﻿@page "/formparent/details/{FormParentId:long}"
+<h3>Formulario Padre: @FormParentName </h3>
+
+<div class="card">
+    <div class="card-header">
+        <span>
+            <i class="bi bi-key" /> Formularios Roles
+            <a class="btn btn-sm btn-primary" href="/formparent"><i class="bi bi-arrow-left-square" /> Regresar</a>
+        </span>
+    </div>
+    <div class="card-body">
+        <Pagination CurrentPage="currentPage"
+                    TotalPages="totalPages"
+                    SelectedPage="SelectedPageAsync" />
+        <div class="mb-2" style="display: flex; flex-wrap:wrap; align-items: center;">
+            <input style="width: 400px;" type="text" class="form-control" id="titulo" placeholder="Buscar..." @bind-value="Filter" />
+            <button type="button" class="btn btn-outline-primary mx-1" @onclick="ApplyFilterAsync">Filtrar</button>
+            <button type="button" class="btn btn-outline-danger" @onclick="CleanFilterAsync">Limpiar</button>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Formularios</th>
+                    <th>Roles</th>
+                    <th style="width:180px"></th>
+                </tr>
+            </thead>
+            <GenericList MyList="MyList">
+                <Body>
+                <tbody>
+                    @foreach (var item in MyList!)
+                    {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.RolesNumber</td>
+                        <td>
+                                <a href="/formparent/details/formusertypeindex/@FormParentId/@item.Id" class="btn btn-warning">Detalles</a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+                </Body>
+            </GenericList>
+        </table>
+    </div>
+</div>

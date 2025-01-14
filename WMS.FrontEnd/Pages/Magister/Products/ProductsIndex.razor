@@ -1,0 +1,90 @@
+﻿@page "/products"
+
+
+<h3>Productos</h3>
+
+<div class="card">
+    <div class="card-header">
+        <span>
+            <i class="bi bi-card-heading" /> Productos
+            <a class="btn btn-sm btn-primary" href="/products/create"><i class="bi bi-plus-square" /> Nuevo</a>
+        </span>
+    </div>
+    <div class="card-body">
+        <Pagination CurrentPage="currentPage"
+                    TotalPages="totalPages"
+                    SelectedPage="SelectedPageAsync" />
+        <div class="mb-2" style="display: flex; flex-wrap:wrap; align-items: center;">
+            <button style="width: 150px;" type="button" class="btn btn-info mx-1" @onclick="SearchProductType">Tipo Producto</button>
+            <label style="width: 200px;" class="form-label">@NameProductType</label>
+        </div>       
+        <br />
+        <div class="mb-2" style="display: flex; flex-wrap:wrap; align-items: center;">
+            <input style="width: 100px;" type="number" class="form-control" id="titulo" placeholder="Referencia.." @bind-value="Filter1" />
+            <input style="width: 350px;" type="number" class="form-control" id="titulo" placeholder="Descripcion.." @bind-value="Filter2" />
+            <button type="button" class="btn btn-outline-primary mx-1" @onclick="ApplyFilterAsync">Filtrar</button>
+            <button type="button" class="btn btn-outline-danger" @onclick="CleanFilterAsync">Limpiar</button>
+        </div>
+
+        <div>
+            <a class="btn btn-sm btn-outline-danger" href="/products/deletes"><i class="bi bi-trash" />Eliminados</a>
+            <button type="button" class="btn btn-outline-succes mx-1" @onclick="Export"><i class="bi bi-download" />Exportar</button>
+            <a class="btn btn-sm btn-outline-primary" href="/products/upload"><i class="bi bi-upload" />Subir Plano</a>           
+        </div>
+        
+        <table  class="table table-striped" style="width:2000px">
+            <thead>
+                <tr>
+                    <th>Tipo Producto</th>
+                    <th>Referencia</th>
+                    <th>Descripción</th>
+                    <th>Codigo Externo</th>
+                    <th>Llave</th>
+                    <th>F. Dim</th>
+                    <th>Con Lote</th>
+                    <th>Con Serial</th>
+                    <th>Largo</th>
+                    <th>Ancho</th>
+                    <th>Alto</th>
+                    <th>Volumen</th>
+                    <th>Peso</th>
+                    <th>Activa</th>
+                    <th style="width:160px"></th>
+                </tr>
+            </thead>
+            <GenericList MyList="MyList">
+                <Body>
+                <tbody>
+                        @foreach (var item in MyList!)
+                        {
+                        <tr>
+                            <td>@item.ProductType!.Name</td>
+                            <td>@item.Reference</td>
+                            <td>@item.Description</td>
+                            <td>@item.ExternalCode</td>
+                            <td>@item.IsKey</td>
+                            <td>@item.Fdimen</td>
+                            <td>@item.WithLot</td>
+                            <td>@item.WithSerial</td>
+                            <td>@item.Length</td>
+                            <td>@item.Width</td>
+                            <td>@item.Height</td>
+                            <td>@item.Volume</td>
+                            <td>@item.Height</td>
+                            <td><input class="form-check-input" type="checkbox" @bind="@item.Active" disabled="true" /></td>                            
+                            <td>
+                                <span>
+                                    <a href="/products/edit/@item.Id" class="btn btn-warning"><i class="bi bi-pencil-fill"/></a>
+                                    <button @onclick=@(() => DeleteAsycn(item)) class="btn btn-danger"><i class="bi bi-trash"/></button>
+                                    <a class="btn btn-primary" @onclick=@(() => ShowModal(item))><i class="bi bi-clock-history"/></a>
+                                    </span>
+                            </td>
+                        </tr>
+                        }
+                </tbody>
+                </Body>
+            </GenericList>
+        </table>
+    </div>
+</div>
+

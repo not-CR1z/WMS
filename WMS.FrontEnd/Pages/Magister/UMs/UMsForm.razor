@@ -1,0 +1,58 @@
+﻿<h3>Unidad Medida</h3>
+@if (loading)
+{
+    <Loading />
+}
+else
+{
+    <NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
+    <EditForm Model="Model" OnValidSubmit="OnDataAnnotationsValidatedAsync">
+        <DataAnnotationsValidator />
+        <div class="col-12">
+            <div class="row">
+                <div class="card col-12">
+                    <div class="card-body col-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label>Codigo:</label>
+                                    <div>
+                                        <InputText class="form-control" @bind-Value="@Model.Code" />
+                                        <ValidationMessage For="@(() => Model.Code)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Descripción:</label>
+                                    <div>
+                                        <InputText class="form-control" @bind-Value="@Model.Description" />
+                                        <ValidationMessage For="@(() => Model.Description)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Cantidad Decimales:</label>
+                                    <div>
+                                        <InputNumber class="form-control" @bind-Value="@Model.QtyDecimal" />
+                                        <ValidationMessage For="@(() => Model.QtyDecimal)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Unidad Empaque:</label>
+                                    <div>
+                                        <InputNumber class="form-control" @bind-Value="@Model.FactorUnit" />
+                                        <ValidationMessage For="@(() => Model.FactorUnit)" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span>
+                            <button class="btn btn-sm btn-success" type="submit"><i class="bi bi-floppy" /> Guardar</button>
+                            <button class="btn btn-sm btn-primary" @onclick="ReturnAction"><i class="bi bi-arrow-left-square" />Regresar</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </EditForm>
+}

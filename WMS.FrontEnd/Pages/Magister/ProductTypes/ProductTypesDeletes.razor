@@ -1,0 +1,49 @@
+﻿@page "/producttypes/deletes"
+
+
+<h3>Tipos de Productos Eliminados</h3>
+
+<div class="card">
+    <div class="card-header">
+        <span>
+            <i class="bi bi-card-heading" /> Tipo Producto Eliminado
+            <a class="btn btn-sm btn-primary" href="/producttypes"><i class="bi bi-arrow-left-square" /> Regresar</a>
+        </span>
+    </div>
+    <div class="card-body">
+        <Pagination CurrentPage="currentPage"
+                    TotalPages="totalPages"
+                    SelectedPage="SelectedPageAsync" />
+        <div class="mb-2" style="display: flex; flex-wrap:wrap; align-items: center;">
+            <input style="width: 400px;" type="text" class="form-control" id="titulo" placeholder="Buscar..." @bind-value="Filter" />
+            <button type="button" class="btn btn-outline-primary mx-1" @onclick="ApplyFilterAsync">Filtrar</button>
+            <button type="button" class="btn btn-outline-danger" @onclick="CleanFilterAsync">Limpiar</button>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th style="width:160px"></th>
+                </tr>
+            </thead>
+            <GenericList MyList="MyList">
+                <Body>
+                <tbody>
+                        @foreach (var item in MyList!)
+                        {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>                                
+                                <button @onclick=@(() => RestoreAsycn(item)) class="btn btn-success"><i class="bi bi-check2-square" /></button>
+                                <button @onclick=@(() => DeleteAsycn(item)) class="btn btn-danger"><i class="bi bi-trash" /></button>
+                                <a class="btn btn-primary" @onclick=@(() => ShowModal(item))><i class="bi bi-clock-history" /></a>
+                            </td>
+                        </tr>
+                        }
+                </tbody>
+                </Body>
+            </GenericList>
+        </table>
+    </div>
+</div>
+

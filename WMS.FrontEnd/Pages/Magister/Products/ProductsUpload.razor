@@ -1,0 +1,70 @@
+﻿@page "/products/upload"
+
+<h3>Subir Ubicaciones</h3>
+
+<div class="card">
+    <div class="card-header">
+        <span>
+            <i class="bi bi-card-heading" />Ubicación
+            <a class="btn btn-sm btn-primary" href="/bintypes"><i class="bi bi-arrow-left-square" /> Regresar</a>
+            <InputFile OnChange="OnChange" accept=".xlsx" />
+            <button @onclick=@(() => UploadAsycn()) class="btn btn-sm btn-success">Guardar</button>
+        </span>
+    </div>
+    <div class="card-body">
+        <table width="2500">
+            <thead>
+                <tr>
+                    <th style="width:80px">Actualiza</th>
+                    <th style="width:300px">Tipo Producto</th>
+                    <th style="width:300px">Referencia</th>
+                    <th style="width:200px">Descripción</th>
+                    <th style="width:200px">Codigo Externo</th>
+                    <th style="width:120px">Bajo Llave</th>
+                    <th style="width:160px">Fuera Dimensión</th>
+                    <th style="width:450px">Maneja Lote</th>
+                    <th style="width:120px">Maneja Serial</th>
+                    <th style="width:120px">Largo</th>
+                    <th style="width:120px">Ancho</th>
+                    <th style="width:120px">Alto</th>
+                    <th style="width:60px">Peso</th>
+                    <th style="width:60px">Activo</th>
+                    <th style="width:500px"></th>
+                </tr>
+            </thead>
+            @if (loading)
+            {
+                <Loading />
+            }
+            <GenericList MyList="MyList">
+                <Body>
+                <tbody>
+                        @foreach (var item in MyList!)
+                        {
+                        <tr>
+                            <td><input class="form-check-input" type="checkbox" @bind="@item.Update" /></td>            
+                            <td><InputText class="form-control" @bind-Value="@item.GenericSearchName1" /></td>
+                            <td><InputText class="form-control" @bind-Value="@item.Reference" /></td>
+                            <td><InputText class="form-control" @bind-Value="@item.Description"/></td>
+                            <td><InputText class="form-control" @bind-Value="@item.ExternalCode" /></td>
+                            <td><InputCheckbox class="form-control" @bind-Value="@item.IsKey" /></td>
+                            <td><InputCheckbox class="form-control" @bind-Value="@item.Fdimen" /></td>
+                            <td><InputCheckbox class="form-control" @bind-Value="@item.WithLot" /></td>
+                            <td><InputCheckbox class="form-control" @bind-Value="@item.WithSerial" /></td>
+                            <td><InputNumber class="form-control" @bind-Value="@item.Length" /></td>
+                            <td><InputNumber class="form-control" @bind-Value="@item.Width" /></td>
+                            <td><InputNumber class="form-control" @bind-Value="@item.Height" /></td>
+                            <td><InputNumber class="form-control" @bind-Value="@item.Weight" /></td>
+                            <td><input class="form-check-input" type="checkbox" @bind="@item.Active" /></td>
+                            <td>@item.StrError</td>
+                            <td>
+                                <button @onclick=@(() => DeleteAsycn(item)) class="btn btn-danger"><i class="bi bi-trash" /></button>
+                            </td>
+                        </tr>
+                        }
+                </tbody>
+                </Body>
+            </GenericList>
+        </table>
+    </div>
+</div>

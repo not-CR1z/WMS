@@ -1,0 +1,97 @@
+﻿@page "/bins"
+
+
+<h3>Ubicaciones</h3>
+
+<div class="card">
+    <div class="card-header">
+        <span>
+            <i class="bi bi-card-heading" /> Ubicación
+            <a class="btn btn-sm btn-primary" href="/bins/create"><i class="bi bi-plus-square" /> Nuevo</a>
+        </span>
+    </div>
+    <div class="card-body">
+        <Pagination CurrentPage="currentPage"
+                    TotalPages="totalPages"
+                    SelectedPage="SelectedPageAsync" />
+        <div class="mb-2" style="display: flex; flex-wrap:wrap; align-items: center;">
+            <button style="width: 150px;"  type="button" class="btn btn-info mx-1" @onclick="SearchBranch">Sucursal</button>
+            <label style="width: 200px;" class="form-label">@NameBranch</label>
+
+            <button style="width: 150px;" type="button" class="btn btn-info mx-1" @onclick="SearchWinery">Bodega</button>
+            <label style="width: 200px;" class="form-label">@NameWinery</label>
+        </div>
+        <div>
+            <button style="width: 150px;" type="button" class="btn btn-info mx-1" @onclick="SearchSubWinery">Sub-Bodega</button>
+            <label style="width: 190px;" class="form-label">@CodeSubWinery</label>
+
+            <button style="width: 150px;" type="button" class="btn btn-info mx-1" @onclick="SearchBinType">Tipo Ubicación</button>
+            <label style="width: 200px;" class="form-label">@NameBinType</label>
+        </div>
+        <br />
+        <div class="mb-2" style="display: flex; flex-wrap:wrap; align-items: center;">
+            <input style="width: 400px;" type="number" class="form-control" id="titulo" placeholder="Buscar..." @bind-value="Filter" />
+            <button type="button" class="btn btn-outline-primary mx-1" @onclick="ApplyFilterAsync">Filtrar</button>
+            <button type="button" class="btn btn-outline-danger" @onclick="CleanFilterAsync">Limpiar</button>
+        </div>
+
+        <div>
+            <a class="btn btn-sm btn-outline-danger" href="/bins/deletes"><i class="bi bi-trash" />Eliminados</a>
+            <button type="button" class="btn btn-outline-succes mx-1" @onclick="Export"><i class="bi bi-download" />Exportar</button>
+            <a class="btn btn-sm btn-outline-primary" href="/bins/upload"><i class="bi bi-upload" />Subir Plano</a>           
+        </div>
+        
+        <table  class="table table-striped" style="width:2000px">
+            <thead>
+                <tr>
+                    <th>Sucursal</th>
+                    <th>Bodega</th>
+                    <th>Sub-Bodega</th>
+                    <th>Tipo Ubicación</th>
+                    <th>Codigo ABC</th>
+                    <th>Codigo Ubicación</th>
+                    <th>Descripcion Ubicación</th>
+                    <th>Largo CM</th>
+                    <th>Ancho CM</th>
+                    <th>Profundida CM</th>
+                    <th>Peso Kg</th>
+                    <th>Porcentaje USO</th>
+                    <th>Activa</th>
+                    <th style="width:150px"></th>
+                </tr>
+            </thead>
+            <GenericList MyList="MyList">
+                <Body>
+                <tbody>
+                        @foreach (var item in MyList!)
+                        {
+                        <tr>
+                            <td>@item.SubWinery!.Winery!.Branch!.Name</td>
+                            <td>@item.SubWinery.Winery.Name</td>
+                            <td>@item.SubWinery.Code</td>
+                            <td>@item.BinType!.Name</td>
+                            <td>@item.BinCodeABC</td>
+                            <td>@item.BinCode</td>
+                            <td>@item.BinDescription</td>
+                            <td>@item.HeightCM</td>
+                            <td>@item.WidthCM</td>
+                            <td>@item.DepthCM</td>
+                            <td>@item.WeightKG</td>
+                            <td>@item.PercentUsed</td>
+                            <td><input class="form-check-input" type="checkbox" @bind="@item.Active" disabled="true" /></td>                            
+                            <td>
+                                <span>
+                                    <a href="/bins/edit/@item.Id" class="btn btn-warning"><i class="bi bi-pencil-fill"/></a>
+                                    <button @onclick=@(() => DeleteAsycn(item)) class="btn btn-danger"><i class="bi bi-trash"/></button>
+                                    <a class="btn btn-primary" @onclick=@(() => ShowModal(item))><i class="bi bi-clock-history"/></a>
+                                    </span>
+                            </td>
+                        </tr>
+                        }
+                </tbody>
+                </Body>
+            </GenericList>
+        </table>
+    </div>
+</div>
+

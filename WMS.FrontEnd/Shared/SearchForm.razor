@@ -1,0 +1,42 @@
+﻿<h3>@Label</h3>
+
+<div class="card">
+    <div class="card-header">
+        <span>
+            <i class="bi bi-card-heading" /> @Label
+        </span>
+    </div>
+    <div class="card-body">
+        <div class="mb-2" style="display: flex; flex-wrap:wrap; align-items: center;">
+            <input style="width: 400px;" type="text" class="form-control" id="titulo" placeholder="Buscar..." @bind-value="Filter" />
+            <button type="button" class="btn btn-outline-primary mx-1" @onclick="ApplyFilterAsync">Filtrar</button>
+            <button type="button" class="btn btn-outline-danger" @onclick="CleanFilterAsync">Limpiar</button>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th style="width:200px">Seleccione</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                </tr>
+            </thead>
+            <GenericList MyList="MyList">
+                <Body>
+                    <tbody>
+                        @foreach (var item in MyList!)
+                        {
+                        <tr>
+                            <td>
+                                <button @onclick=@(() => SelectAsync(item)) class="btn btn-success">Seleccione</button>
+                            </td>
+                            <td>@item.Name</td>
+                            <td>@item.Description</td>
+                        </tr>
+                        }
+                    </tbody>
+                </Body>
+            </GenericList>
+        </table>
+        <button class="btn btn-info" @onclick="ClosedAsync">Regresar</button>
+    </div>
+</div>

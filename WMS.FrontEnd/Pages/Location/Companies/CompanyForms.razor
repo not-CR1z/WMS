@@ -1,0 +1,144 @@
+﻿@page "/Company"
+
+@if (loading)
+{
+    <Loading />
+}
+else
+{
+    <NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
+    <EditForm Model="Model" OnValidSubmit="SaveAsync">
+        <DataAnnotationsValidator />
+        <div class="col-12">
+            <div class="row">
+                <div class="card col-12">
+                    <div class="card-body col-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label>Nombre:</label>
+                                    <div>
+                                        <InputText class="form-control" @bind-Value="@Model.Name" />
+                                        <ValidationMessage For="@(() => Model.Name)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Descripción:</label>
+                                    <div>
+                                        <InputText class="form-control" @bind-Value="@Model.Description" />
+                                        <ValidationMessage For="@(() => Model.Description)" />
+                                    </div>
+                                </div>                              
+                                <div class="mb-3">
+                                    <label>Licencia Desde:</label>
+                                    <div>
+                                        <InputDate class="form-control" @bind-Value="@Model.StarLicence" />
+                                        <ValidationMessage For="@(() => Model.StarLicence)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Licencia Hasta:</label>
+                                    <div>
+                                        <InputDate class="form-control" @bind-Value="@Model.EndLicence" />
+                                        <ValidationMessage For="@(() => Model.EndLicence)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Licencia:</label>
+                                    <div>
+                                        <InputText class="form-control" @bind-Value="@Model.Licence" />
+                                        <ValidationMessage For="@(() => Model.Licence)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Email:</label>
+                                    <div>
+                                        <InputText class="form-control" @bind-Value="@Model.Email" />
+                                        <ValidationMessage For="@(() => Model.Email)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <InputImg Label="Logo" ImageSelected="ImageSelected" ImageURL="@imageUrl" />
+                                </div>
+                                <div class="mb-3">
+                                    <label>País:</label>
+                                    <div>
+                                        <select class="form-select" @onchange="CountryChangedAsync">
+                                            <option value="0">-- Seleccione un país --</option>
+                                            @if (countries is not null)
+                                            {
+                                                @foreach (var country in countries)
+                                                {
+                                                    if(Model.Id==0)
+                                                    {
+                                                        <option value="@country.Id">@country.Name</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@country.Id" selected="@(country.Id == Model.City!.State!.Country!.Id)">@country.Name</option>
+                                                    }
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Estado/Departamento:</label>
+                                    <div>
+                                        <select class="form-select" @onchange="StateChangedAsync">
+                                            <option value="0">-- Seleccione un estado/departamento --</option>
+                                            @if (states is not null)
+                                            {
+                                                @foreach (var state in states)
+                                                {
+                                                    if (Model.Id == 0)
+                                                    {
+                                                        <option value="@state.Id">@state.Name</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@state.Id" selected="@(state.Id == Model.City!.State!.Id)">@state.Name</option>
+                                                    }
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Ciudad:</label>
+                                    <div>
+                                        <select class="form-select" @bind="Model.CityId">
+                                            <option value="0">-- Seleccione una ciudad --</option>
+                                            @if (cities is not null)
+                                            {
+                                                @foreach (var city in cities)
+                                                {                                        
+                                                    if (Model.Id == 0)
+                                                    {
+                                                        <option value="@city.Id">@city.Name</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@city.Id" selected="@(city.Id == Model.City!.Id)">@city.Name</option>
+                                                    }
+                                                }
+                                            }
+                                        </select>
+                                        <ValidationMessage For="@(() => Model.CityId)" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span>
+                            <button class="btn btn-sm btn-success" type="submit"><i class="bi bi-floppy" /> Guardar</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </EditForm>
+}
+
+

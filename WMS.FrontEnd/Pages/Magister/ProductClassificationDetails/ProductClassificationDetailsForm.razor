@@ -1,0 +1,37 @@
+﻿<h3>Opción</h3>
+@if (loading)
+{
+    <Loading/>
+}
+else
+{
+    <NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
+    <EditForm Model="Model" OnValidSubmit="OnDataAnnotationsValidatedAsync">
+        <DataAnnotationsValidator />
+        <div class="col-12">
+            <div class="row">
+                <div class="card col-12">
+                    <div class="card-body col-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label>Nombre:</label>
+                                    <div>
+                                        <InputText class="form-control" @bind-Value="@Model.Name" />
+                                        <ValidationMessage For="@(() => Model.Name)" />
+                                    </div>
+                                </div>                              
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span>
+                            <button class="btn btn-sm btn-success" type="submit"><i class="bi bi-floppy" /> Guardar</button>
+                            <button class="btn btn-sm btn-primary" @onclick="ReturnAction"><i class="bi bi-arrow-left-square" />Regresar</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </EditForm>
+}

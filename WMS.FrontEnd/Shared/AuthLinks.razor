@@ -1,0 +1,27 @@
+﻿﻿<AuthorizeView>
+    <Authorized>
+        <span class="d-flex align-items-center">
+            Hola2, <a href="EditUser" class="nav-link btn btn-link">@context.User.Identity!.Name</a>
+        </span>
+        <div class="mx-2">
+            <img src="https://orderszulu2024.blob.core.windows.net/users/7d02fbb8-237f-470a-8c30-092a924d4635.jpg" width="50" height="50" style="border-radius:50%" />
+        </div>
+        @if (!string.IsNullOrEmpty(photoUser))
+        {
+            <div class="mx-2">
+                <img src="@photoUser" width="50" height="50" style="border-radius:50%" />
+            </div>
+        }
+        else
+        {
+            <div class="mx-2">
+                <img src="https://orderszulu2024.blob.core.windows.net/users/7d02fbb8-237f-470a-8c30-092a924d4635.jpg" width="50" height="50" style="border-radius:50%" />
+            </div>
+        }
+        <a href="Logout" class="nav-link btn btn-link">Cerrar Sesión</a>
+    </Authorized>
+    <NotAuthorized>
+        <a href="register" class="nav-link btn btn-link">Registro</a>
+        <a href="Login" class="nav-link btn btn-link">Iniciar Sesión</a>
+    </NotAuthorized>
+</AuthorizeView>

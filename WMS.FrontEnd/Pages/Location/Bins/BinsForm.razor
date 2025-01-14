@@ -1,0 +1,108 @@
+﻿<h3>Ubicación</h3>
+@if (loading)
+{
+    <Loading />
+}
+else
+{
+    <NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
+    <EditForm EditContext="editContext"  OnValidSubmit="OnDataAnnotationsValidatedAsync">
+        <DataAnnotationsValidator />
+        <div class="col-12">
+            <div class="row">
+                <div class="card col-12">
+                    <div class="card-body col-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mb-2" style="display: flex; flex-wrap:wrap; align-items: center;">
+                                    <button style="width: 150px;" type="button" class="btn btn-info mx-1" @onclick="SearchBranch">Sucursal</button>
+                                    <label style="width: 200px;" class="form-label">@NameBranch</label>
+
+                                    <button style="width: 150px;" type="button" class="btn btn-info mx-1" @onclick="SearchWinery">Bodega</button>
+                                    <label style="width: 200px;" class="form-label">@NameWinery</label>
+                                </div>
+                                <div>
+                                    <button style="width: 150px;" type="button" class="btn btn-info mx-1" @onclick="SearchSubWinery">Sub-Bodega</button>
+                                    <label style="width: 190px;" class="form-label">@CodeSubWinery</label>
+
+                                    <button style="width: 150px;" type="button" class="btn btn-info mx-1" @onclick="SearchBinType">Tipo Ubicación</button>
+                                    <label style="width: 200px;" class="form-label">@NameBinType</label>
+                                </div>
+                                <br />
+                                <div class="mb-3">
+                                    <label>Codigo ABC:</label>
+                                    <div>
+                                        <InputText class="form-control" @bind-Value="@Model.BinCodeABC" />
+                                        <ValidationMessage For="@(() => Model.BinCodeABC)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Codigo Ubicación:</label>
+                                    <div>
+                                        <InputText class="form-control" @bind-Value="@Model.BinCode" />
+                                        <ValidationMessage For="@(() => Model.BinCode)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Descripcion Ubicación:</label>
+                                    <div>
+                                        <InputText class="form-control" @bind-Value="@Model.BinDescription" />
+                                        <ValidationMessage For="@(() => Model.BinDescription)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Altura Centimetros</label>
+                                    <div>
+                                        <InputNumber class="form-control" @bind-Value="@Model.HeightCM" />
+                                        <ValidationMessage For="@(() => Model.HeightCM)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Ancho Centimetros</label>
+                                    <div>
+                                        <InputNumber class="form-control" @bind-Value="@Model.WidthCM" />
+                                        <ValidationMessage For="@(() => Model.WidthCM)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Profundida Centimetros</label>
+                                    <div>
+                                        <InputNumber class="form-control" @bind-Value="@Model.DepthCM" />
+                                        <ValidationMessage For="@(() => Model.DepthCM)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Peso Kilogramos</label>
+                                    <div>
+                                        <InputNumber class="form-control" @bind-Value="@Model.WeightKG" />
+                                        <ValidationMessage For="@(() => Model.WeightKG)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Porcentaje USO</label>
+                                    <div>
+                                        <InputNumber class="form-control" @bind-Value="@Model.PercentUsed" />
+                                        <ValidationMessage For="@(() => Model.PercentUsed)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Activa:</label>
+                                    <div>
+                                        <input class="form-check-input" type="checkbox" @bind="@Model.Active" />
+                                        <ValidationMessage For="@(() => Model.Active)" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span>
+                            <button class="btn btn-sm btn-success" type="submit"><i class="bi bi-floppy" /> Guardar</button>
+                            <button class="btn btn-sm btn-primary" @onclick="ReturnAction"><i class="bi bi-arrow-left-square"/>Regresar</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </EditForm>
+}

@@ -1,0 +1,50 @@
+﻿@if (loading)
+{
+    <Loading />
+}
+else
+{
+    <NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
+    <EditForm Model="Model" OnValidSubmit="OnDataAnnotationsValidatedAsync">
+        <DataAnnotationsValidator />
+        <div class="mb-3">
+            <select class="form-select" @bind="Model.UserTypeId">
+                <option value="0">-- Seleccione Rol --</option>
+                @if (UserTypeList is not null)
+                {
+                    @foreach (var item in UserTypeList)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                }
+            </select>
+            <ValidationMessage For="@(() => Model.UserTypeId)" />
+        </div>
+        
+        <div class="form-check">
+            <label class="form-check-label">Crear</label>
+            <input class="form-check-input" type="checkbox" @bind="@Model.Create" />
+        </div>
+
+        <div class="form-check">
+            <label class="form-check-label">Leer</label>
+            <input class="form-check-input" type="checkbox" @bind="@Model.Read" />
+        </div>
+
+        <div class="form-check">
+            <label class="form-check-label">Actualizar</label>
+            <input class="form-check-input" type="checkbox" @bind="@Model.Update" />
+        </div>
+
+        <div class="form-check">
+            <label class="form-check-label">Eliminar</label>
+            <input class="form-check-input" type="checkbox" @bind="@Model.Delete" />
+        </div>
+
+        <button class="btn btn-primary" type="submit"><i class="bi bi-floppy" />Guardar</button>
+        <button class="btn btn-success" @onclick="ReturnAction"><i class="bi bi-arrow-left-square" />Regresar</button>
+    </EditForm>
+}
+
+
+

@@ -1,0 +1,3 @@
+﻿@page "/products/edit/{Id:long}"
+
+<ProductsForm @ref="form" Model="Model" OnValidSubmit="SavedAsync" ReturnAction="Return" />

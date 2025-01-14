@@ -1,0 +1,81 @@
+﻿@page "/products/deletes"
+
+
+<h3>Productos Eliminados</h3>
+
+<div class="card">
+    <div class="card-header">
+        <span>
+            <i class="bi bi-card-heading" /> Producto Eliminado
+            <a class="btn btn-sm btn-primary" href="/bins"><i class="bi bi-arrow-left-square" /> Regresar</a>
+        </span>
+    </div>
+    <div class="card-body">
+        <Pagination CurrentPage="currentPage"
+                    TotalPages="totalPages"
+                    SelectedPage="SelectedPageAsync" />
+        <div class="mb-2" style="display: flex; flex-wrap:wrap; align-items: center;">
+            <button style="width: 150px;" type="button" class="btn btn-info mx-1" @onclick="SearchProductType">Tipo Producto</button>
+            <label style="width: 200px;" class="form-label">@NameProductType</label>
+        </div>
+        <br />
+        <div class="mb-2" style="display: flex; flex-wrap:wrap; align-items: center;">
+            <input style="width: 400px;" type="text" class="form-control" id="titulo" placeholder="Buscar...Referencia" @bind-value="Filter1" />
+            <input style="width: 400px;" type="text" class="form-control" id="titulo" placeholder="Buscar...Descripción" @bind-value="Filter2" />
+            <button type="button" class="btn btn-outline-primary mx-1" @onclick="ApplyFilterAsync">Filtrar</button>
+            <button type="button" class="btn btn-outline-danger" @onclick="CleanFilterAsync">Limpiar</button>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Tipo Producto</th>
+                    <th>Referencia</th>
+                    <th>Descripción</th>
+                    <th>Codigo Externo</th>
+                    <th>Llave</th>
+                    <th>F. Dim</th>
+                    <th>Con Lote</th>
+                    <th>Con Serial</th>
+                    <th>Largo</th>
+                    <th>Ancho</th>
+                    <th>Alto</th    >
+                    <th>Volumen</th>
+                    <th>Peso</th>
+                    <th>Activa</th>
+                    <th style="width:160px"></th>
+                </tr>
+            </thead>
+            <GenericList MyList="MyList">
+                <Body>
+                <tbody>
+                        @foreach (var item in MyList!)
+                        {
+                        <tr>
+                            <td>@item.ProductType!.Name</td>
+                            <td>@item.Reference</td>
+                            <td>@item.Description</td>
+                            <td>@item.ExternalCode</td>
+                            <td>@item.IsKey</td>
+                            <td>@item.Fdimen</td>
+                            <td>@item.WithLot</td>
+                            <td>@item.WithSerial</td>
+                            <td>@item.Length</td>
+                            <td>@item.Width</td>
+                            <td>@item.Height</td>
+                            <td>@item.Volume</td>
+                            <td>@item.Height</td>
+                            <td><input class="form-check-input" type="checkbox" @bind="@item.Active" disabled="true" /></td>
+                            <td>
+                                <button @onclick=@(() => RestoreAsycn(item)) class="btn btn-success"><i class="bi bi-check2-square" /></button>
+                                <button @onclick=@(() => DeleteAsycn(item)) class="btn btn-danger"><i class="bi bi-trash" /></button>
+                                <a class="btn btn-primary" @onclick=@(() => ShowModal(item))><i class="bi bi-clock-history" /></a>
+                            </td>
+                        </tr>
+                        }
+                </tbody>
+                </Body>
+            </GenericList>
+        </table>
+    </div>
+</div>
+

@@ -1,0 +1,73 @@
+﻿@if(Model is null)
+{
+    <Loading />
+}
+else
+{
+    <div class="col-12">
+        <div class="row">
+            <div class="card col-12">
+                <div class="card-body col-12">
+                    <div class="row">
+                        <div class="col-12">
+                            @if (Model.CreateUser is not null)
+                            {
+                                <div class="mb-3">                     
+                                    <label>Usuario Creacion:</label>
+                                    <div>
+                                        <label>@Model.CreateUser!.FullName</label>
+                                    </div>
+                                    <label>Fecha Creacion:</label>
+                                    <div>
+                                        <label>@Model.CreateDate</label>
+                                    </div>
+                                </div>
+                            }
+                            @if (Model.UpdateUser is not null)
+                            {
+                                <div class="mb-3">
+                                    <label>Usuario Actualización:</label>
+                                    <div>
+                                        <label>@Model.UpdateUser!.FullName</label>
+                                    </div>
+                                    <label>Fecha Actualización:</label>
+                                    <div>
+                                        <label>@Model.UpdateDate</label>
+                                    </div>
+                                </div>
+                            }
+                            @if (Model.ChangeStateUser is not null)
+                            {
+                                <div class="mb-3">
+                                    <label>Usuario Cambio Estado:</label>
+                                    <div>
+                                        <label>@Model.ChangeStateUser!.FullName</label>
+                                    </div>
+                                    <label>Fecha Cambio Estado:</label>
+                                    <div>
+                                        <label>@Model.ChangeStateDate</label>
+                                    </div>
+                                </div>
+                            }
+                            @if (Model.DeleteUser is not null)
+                            {
+                                <div class="mb-3">
+                                    <label>Usuario Eliminación:</label>
+                                    <div>
+                                        <label>@Model.DeleteUser!.FullName</label>
+                                    </div>
+                                    <label>Fecha Eliminación:</label>
+                                    <div>
+                                        <label>@Model.DeleteDate</label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+

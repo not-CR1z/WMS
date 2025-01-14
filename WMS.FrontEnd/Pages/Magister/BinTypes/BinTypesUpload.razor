@@ -1,0 +1,55 @@
+﻿@page "/bintypes/upload"
+
+
+<h3>Subir Tipos de Ubicación</h3>
+
+<div class="card">
+    <div class="card-header">
+        <span>
+            <i class="bi bi-card-heading" /> Tipo Ubicación
+            <a class="btn btn-sm btn-primary" href="/bintypes"><i class="bi bi-arrow-left-square"/> Regresar</a>
+            <InputFile OnChange="OnChange" accept=".xlsx" />
+            <button @onclick=@(() => UploadAsycn()) class="btn btn-sm btn-success">Guardar</button>
+        </span>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Fila</th>
+                    <th>Nombre</th>
+                    <th>Descripcion</th>
+                    <th>Picking</th>
+                    <th>Orden Picking</th>
+                    <th>Error</th>
+                    <th style="width:160px"></th>
+                </tr>
+            </thead>
+            @if(loading)
+            {
+                <Loading/>
+            }
+            <GenericList MyList="MyList">
+                <Body>
+                <tbody>
+                        @foreach (var item in MyList!)
+                        {
+                        <tr>
+                            <th>@item.Row</th>
+                            <td><InputText class="form-control" @bind-Value="@item.Name" /></td>
+                            <td><InputText class="form-control" @bind-Value="@item.Description" /></td>
+                            <td><input class="form-check-input" type="checkbox" @bind="@item.Picking"/></td>
+                            <td><InputNumber class="form-control" @bind-Value="@item.OrderPicking" /></td>
+                            <td>@item.StrError</td>
+                            <td>
+                                <button @onclick=@(() => DeleteAsycn(item)) class="btn btn-danger"><i class="bi bi-trash" /></button>
+                            </td>
+                        </tr>
+                        }
+                </tbody>
+                </Body>
+            </GenericList>
+        </table>
+    </div>
+</div>
+

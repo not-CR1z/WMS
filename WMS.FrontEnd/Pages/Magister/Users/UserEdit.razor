@@ -1,0 +1,118 @@
+﻿@page "/users/edit/{Id_local:long}"
+
+@* <UserForm 
+    @ref="form" 
+    SelectedUserTypes="SelectedUserTypes" 
+    NonSelectedUserTypes="NonSelectedUserTypes" 
+    Model="model" 
+    OnValidSubmit="SaveChangesAsync" 
+    ReturnAction="Return"
+    IsCreate=false/> *@
+
+@if (loading)
+{
+    <Loading />
+}
+else
+{
+    <EditForm Model="Model" OnValidSubmit="SaveChangesAsync">
+        <DataAnnotationsValidator />
+        <div class="col-12">
+            <div class="row">
+                <div class="card col-12">
+                    <div class="card-body col-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label>Nombres:</label>
+                                    <div>
+                                        <InputText class="form-control" @bind-Value="@Model.FirstName" />
+                                        <ValidationMessage For="@(() => Model.FirstName)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Apellidos:</label>
+                                    <div>
+                                        <InputText class="form-control" @bind-Value="@Model.LastName" />
+                                        <ValidationMessage For="@(() => Model.LastName)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Tipo Documento:</label>
+                                    <div>
+                                        <select class="form-select" @bind="Model.DocumentTypeUserId">
+                                            <option value="0">-- Seleccione Tipo Documento --</option>
+                                            @if (DocumentTypeUsersList is not null)
+                                            {
+                                                @foreach (var city in DocumentTypeUsersList)
+                                                {
+                                                    <option value="@city.Id">@city.Name</option>
+                                                }
+                                            }
+                                        </select>
+                                        <ValidationMessage For="@(() => Model.DocumentTypeUserId)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Documento:</label>
+                                    <div>
+                                        <InputText class="form-control" @bind-Value="@Model.Document" />
+                                        <ValidationMessage For="@(() => Model.Document)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Teléfono:</label>
+                                    <div>
+                                        <InputText class="form-control" @bind-Value="@Model.PhoneNumber" />
+                                        <ValidationMessage For="@(() => Model.PhoneNumber)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Dirección:</label>
+                                    <div>
+                                        <InputText class="form-control" @bind-Value="@Model.Address" />
+                                        <ValidationMessage For="@(() => Model.Address)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Email:</label>
+                                    <div>
+                                        <InputText class="form-control" @bind-Value="@Model.Email" />
+                                        <ValidationMessage For="@(() => Model.Email)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <InputImg Label="Foto" ImageSelected="ImageSelected" ImageURL="@imageUrl" />
+                                </div>
+                                <div class="mb-3">
+                                    <br />
+                                    <div>
+                                        <a class="btn btn-sm btn-danger float-start" href="/changepassword/@Model.Id_Local"><i class="bi bi-key" /> Cambiar Contraseña</a>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="mb-3">
+                                    <label>Super Usuario:</label>
+                                        <input class="form-check-input" type="checkbox" @bind="@Model.SuperU" />
+                                        <ValidationMessage For="@(() => Model.SuperU)" />
+                                </div>
+                                <div class="mb-3">
+                                    <label>Roles:</label>
+                                    <div>
+                                        <MultipleSelector NonSelected="nonSelected" Selected="selected" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span>
+                            <button class="btn btn-sm btn-success" type="submit"><i class="bi bi-person-add" /> Guardar</button>
+                            <a class="btn btn-sm btn-primary" href="/users">Regresar</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </EditForm>
+}

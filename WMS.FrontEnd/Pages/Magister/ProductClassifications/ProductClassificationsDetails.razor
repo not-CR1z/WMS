@@ -1,0 +1,57 @@
+﻿@page "/productclassifications/details/{ProductClassificationId:long}"
+@if (Model is null)
+{
+    <Loading />
+}
+else
+{
+    <h3>Opciones Para @Model.Name</h3>
+    <div class="card">
+        <div class="card-header">
+            <span>
+                <i class="bi bi-card-heading" /> Opción
+                <a class="btn btn-sm btn-primary" href="/productclassifications"><i class="bi bi-arrow-left-square" /> Regresar</a>
+                <a class="btn btn-sm btn-primary float-end" @onclick=@(() => ShowModal(Model.Id))><i class="bi bi-plus-square" /> Nuevo</a>
+            </span>
+        </div>
+        <div class="card-body">
+            <Pagination CurrentPage="currentPage"
+                        TotalPages="totalPages"
+                        SelectedPage="SelectedPageAsync" />
+            <div class="mb-2" style="display: flex; flex-wrap:wrap; align-items: center;">
+                <input style="width: 400px;" type="text" class="form-control" id="titulo" placeholder="Buscar..." @bind-value="Filter" />
+                <button type="button" class="btn btn-outline-primary mx-1" @onclick="ApplyFilterAsync">Filtrar</button>
+                <button type="button" class="btn btn-outline-danger" @onclick="CleanFilterAsync">Limpiar</button>
+            </div>
+            <div>
+                <a class="btn btn-sm btn-outline-danger" href="/productclassifications/detail/deletes/@Model.Id"><i class="bi bi-trash" />Eliminados</a>                
+            </div>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th style="width:160px"></th>
+                    </tr>
+                </thead>
+                <GenericList MyList="MyList">
+                    <Body>
+                    <tbody>
+                            @foreach (var item in MyList!)
+                            {
+                            <tr>
+                                <td>@item.Name</td>                                
+                                <td>
+                                    <a class="btn btn-warning" @onclick=@(() => ShowModal(item.Id,true)) title="Editar"><i class="bi bi-pencil-fill" /></a>
+                                    <button @onclick=@(() => DeleteAsync(item)) class="btn btn-danger" title="Eliminar"><i class="bi bi-trash" /></button>
+                                    <a class="btn btn-primary" @onclick=@(() => ShowModal(item)) title="Historial"><i class="bi bi-clock-history" /></a> 
+                                </td>
+                            </tr>
+                            }
+                    </tbody>
+                    </Body>
+                </GenericList>
+            </table>
+        </div>
+    </div>
+}

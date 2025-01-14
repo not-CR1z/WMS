@@ -1,0 +1,10 @@
+﻿@page "/documenttypeusers/edit/{Id:long}"
+
+@if (model is null)
+{
+    <Loading />
+}
+else
+{
+    <FormWithName @ref="form" Label="Tipo Documento Usuario: " Model="model" OnValidSubmit="EditAsync" ReturnAction="Return" />
+}

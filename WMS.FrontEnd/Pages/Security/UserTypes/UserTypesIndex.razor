@@ -1,0 +1,46 @@
+﻿@page "/usertype"
+
+<h3>Roles</h3>
+
+<div class="card">
+    <div class="card-header">
+        <span>
+            <i class="bi bi-key" /> Roles
+            <a class="btn btn-sm btn-primary" href="/usertype/create"><i class="bi bi-plus-square" /> Nuevo</a>
+        </span>
+    </div>
+    <div class="card-body">
+        <Pagination CurrentPage="currentPage"
+                    TotalPages="totalPages"
+                    SelectedPage="SelectedPageAsync" />
+        <div class="mb-2" style="display: flex; flex-wrap:wrap; align-items: center;">
+            <input style="width: 400px;" type="text" class="form-control" id="titulo" placeholder="Buscar..." @bind-value="Filter" />
+            <button type="button" class="btn btn-outline-primary mx-1" @onclick="ApplyFilterAsync">Filtrar</button>
+            <button type="button" class="btn btn-outline-danger" @onclick="CleanFilterAsync">Limpiar</button>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Rol</th>
+                    <th style="width:180px"></th>
+                </tr>
+            </thead>
+            <GenericList MyList="MyList">
+                <Body>
+                    <tbody>
+                            @foreach (var item in MyList!)
+                            {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>
+                                    <a href="/usertype/edit/@item.Id" class="btn btn-warning">Editar</a>
+                                    <button @onclick=@(() => DeleteAsycn(item)) class="btn btn-danger">Borrar</button>
+                                </td>
+                            </tr>
+                            }
+                    </tbody>
+                </Body>
+            </GenericList>
+        </table>
+    </div>
+</div>

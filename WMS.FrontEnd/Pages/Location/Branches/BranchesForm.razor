@@ -1,0 +1,107 @@
+﻿<h3>Sucursal</h3>
+@if (loading)
+{
+    <Loading />
+}
+else
+{
+    <NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
+    <EditForm EditContext="editContext" OnValidSubmit="OnDataAnnotationsValidatedAsync">
+        <DataAnnotationsValidator />
+        <div class="col-12">
+            <div class="row">
+                <div class="card col-12">
+                    <div class="card-body col-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label>Nombre:</label>
+                                    <div>
+                                        <InputText class="form-control" @bind-Value="@Model.Name" />
+                                        <ValidationMessage For="@(() => Model.Name)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Descripción:</label>
+                                    <div>
+                                        <InputText class="form-control" @bind-Value="@Model.Description" />
+                                        <ValidationMessage For="@(() => Model.Description)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Contacto:</label>
+                                    <div>
+                                        <InputText class="form-control" @bind-Value="@Model.Contact" />
+                                        <ValidationMessage For="@(() => Model.Contact)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Telefono Contacto:</label>
+                                    <div>
+                                        <InputText class="form-control" @bind-Value="@Model.PhoneContact" />
+                                        <ValidationMessage For="@(() => Model.PhoneContact)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Email Contacto:</label>
+                                    <div>
+                                        <InputText class="form-control" @bind-Value="@Model.EmailContact" />
+                                        <ValidationMessage For="@(() => Model.EmailContact)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Contingencia:</label>
+                                    <div>
+                                        <input class="form-check-input" type="checkbox" @bind="@Model.Contingency" />
+                                        <ValidationMessage For="@(() => Model.Contingency)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Email Notificaciones:</label>
+                                    <div>
+                                        <InputText class="form-control" @bind-Value="@Model.EmailFromNotification" />
+                                        <ValidationMessage For="@(() => Model.EmailFromNotification)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Email Notificaciones Clave:</label>
+                                    <div>
+                                        <InputText class="form-control" @bind-Value="@Model.EmailFromNotificationPassword" />
+                                        <ValidationMessage For="@(() => Model.EmailFromNotificationPassword)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Email Notificaciones Host:</label>
+                                    <div>
+                                        <InputText class="form-control" @bind-Value="@Model.EmailFromHost" />
+                                        <ValidationMessage For="@(() => Model.EmailFromHost)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Email Notificaciones Puerto:</label>
+                                    <div>
+                                        <InputNumber class="form-control" @bind-Value="@Model.EmailFromPort" />
+                                        <ValidationMessage For="@(() => Model.EmailFromPort)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Email Notificaciones SSL:</label>
+                                    <div>
+                                        <input class="form-check-input" type="checkbox" @bind="@Model.EmailFromSsl" />
+                                        <ValidationMessage For="@(() => Model.EmailFromSsl)" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span>
+                            <button class="btn btn-sm btn-success" type="submit"><i class="bi bi-floppy" /> Guardar</button>
+                            <button class="btn btn-sm btn-primary" @onclick="ReturnAction"><i class="bi bi-arrow-left-square" />Regresar</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </EditForm>
+}

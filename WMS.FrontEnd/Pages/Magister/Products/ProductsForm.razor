@@ -1,0 +1,172 @@
+﻿<h3>Producto</h3>
+@if (loading)
+{
+    <Loading />
+}
+else
+{
+    <NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
+    <EditForm EditContext="editContext" OnValidSubmit="OnDataAnnotationsValidatedAsync">
+        <DataAnnotationsValidator />
+        <div class="col-12">
+            <div class="row">
+                <div class="card col-12">
+                    <div class="card-body col-12">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-2" style="display: flex; flex-wrap:wrap; align-items: center;">
+                                    <button style="width: 150px;" type="button" class="btn btn-info mx-1" @onclick="SearchProductType">Tipo Producto</button>
+                                    <label style="width: 200px;" class="form-label">@NameProductType</label>
+                                </div>  
+                                <br />
+                                <div class="mb-3">
+                                    <label>Referencia:</label>
+                                    <div>
+                                        <InputText class="form-control" @bind-Value="@Model.Reference" />
+                                        <ValidationMessage For="@(() => Model.Reference)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Descripción:</label>
+                                    <div>
+                                        <InputText class="form-control" @bind-Value="@Model.Description" />
+                                        <ValidationMessage For="@(() => Model.Description)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Codigo Externo:</label>
+                                    <div>
+                                        <InputText class="form-control" @bind-Value="@Model.ExternalCode" />
+                                        <ValidationMessage For="@(() => Model.ExternalCode)" />
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label>Peso</label>
+                                    <div>
+                                        <InputNumber class="form-control" @bind-Value="@Model.Weight" />
+                                        <ValidationMessage For="@(() => Model.Weight)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Activo:</label>
+                                    <div>
+                                        <input class="form-check-input" type="checkbox" @bind="@Model.Active" />
+                                        <ValidationMessage For="@(() => Model.Active)" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label>Bajo Llave:</label>
+                                    <div>
+                                        <input class="form-check-input" type="checkbox" @bind="@Model.IsKey" />
+                                        <ValidationMessage For="@(() => Model.IsKey)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Fuera Dimensión:</label>
+                                    <div>
+                                        <input class="form-check-input" type="checkbox" @bind="@Model.Fdimen" />
+                                        <ValidationMessage For="@(() => Model.Fdimen)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Maneja Lote:</label>
+                                    <div>
+                                        <input class="form-check-input" type="checkbox" @bind="@Model.WithLot" />
+                                        <ValidationMessage For="@(() => Model.WithLot)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Maneja Serial:</label>
+                                    <div>
+                                        <input class="form-check-input" type="checkbox" @bind="@Model.WithSerial" />
+                                        <ValidationMessage For="@(() => Model.WithSerial)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Largo</label>
+                                    <div>
+                                        <InputNumber class="form-control" @bind-Value="@Model.Length" />
+                                        <ValidationMessage For="@(() => Model.Length)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Ancho</label>
+                                    <div>
+                                        <InputNumber class="form-control" @bind-Value="@Model.Width" />
+                                        <ValidationMessage For="@(() => Model.Width)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Alto</label>
+                                    <div>
+                                        <InputNumber class="form-control" @bind-Value="@Model.Height" />
+                                        <ValidationMessage For="@(() => Model.Height)" />
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Volumen</label>
+                                    <div>
+                                        <label>@Model.Volume</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                       
+                    </div>
+                    <div class="card-footer">
+                        <span>
+                            <button class="btn btn-sm btn-success" type="submit"><i class="bi bi-floppy" /> Guardar</button>
+                            <button class="btn btn-sm btn-primary" @onclick="ReturnAction"><i class="bi bi-arrow-left-square"/>Regresar</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </EditForm>
+    <EditForm EditContext="editContext">
+        <div class="row">
+        <div class="col-10">
+            <div>
+                <button type="button" class="btn btn-primary" @onclick="AddClasification"><i class="bi bi-plus-square" />Agregar Clasificación</button>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Seleccion</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <GenericList MyList="@Model.ProductProductClassificationDetails!.ToList()">
+                    <Body>
+                    <tbody>
+                            @foreach (var item in Model.ProductProductClassificationDetails!)
+                            {
+                            <tr>
+                                <td>@item.ProductClassification!.Name</td>
+                                <td>
+                                    <select class="form-select" @bind="item.ProductClassificationDetailId">
+                                        <option value="0">-- Seleccione --</option>
+                                            @if (item.ListDetail is not null)
+                                            {
+                                                @foreach (var itemclasi in item.ListDetail)
+                                                {
+                                                <option value="@itemclasi.Id">@itemclasi.Name</option>
+                                                }
+                                            }
+                                    </select>
+                                    <ValidationMessage For="@(() => item.ProductClassificationDetailId)" />
+                                </td>
+                                <td><button @onclick=@(() => DeleteClasification(item)) class="btn btn-danger"><i class="bi bi-trash" /></button></td>
+                            </tr>
+                            }
+                    </tbody>
+                    </Body>
+                </GenericList>
+            </table>
+        </div>
+    </div>
+    </EditForm>
+}

@@ -1,0 +1,11 @@
+﻿@page "/products/clock/{Id:long}"
+@if(userUpdateDTO is null)
+{
+    <Loading/>
+}
+else
+{
+    <ClockGeneric Model="userUpdateDTO"/>
+}
+
+

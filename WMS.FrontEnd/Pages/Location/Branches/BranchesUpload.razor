@@ -1,0 +1,68 @@
+﻿@page "/branches/upload"
+
+
+<h3>Subir Sucursales</h3>
+
+<div class="card">
+    <div class="card-header">
+        <span>
+            <i class="bi bi-card-heading" /> Sucursal
+            <a class="btn btn-sm btn-primary" href="/bintypes"><i class="bi bi-arrow-left-square"/> Regresar</a>
+            <InputFile OnChange="OnChange" accept=".xlsx" />
+            <button @onclick=@(() => UploadAsycn()) class="btn btn-sm btn-success">Guardar</button>
+        </span>
+    </div>
+    <div class="card-body">
+        <table width="2500">
+            <thead>
+                <tr>
+                    <th style="width:300px">Actualiza</th>
+                    <th style="width:300px">Nombre</th>
+                    <th style="width:450px">Descripcion</th>
+                    <th style="width:300px">Contacto</th>
+                    <th style="width:200px">Telefono</th>
+                    <th style="width:300px">Email</th>
+                    <th>Contingencia</th>    
+                    <th style="width:300px">Email_Notificaciones</th>
+                    <th style="width:300px">Clave</th>
+                    <th style="width:300px">Host</th>
+                    <th style="width:300px">Puerto</th>
+                    <th>SSL</th>
+                    <th style="width:160px"></th>
+                </tr>
+            </thead>
+            @if(loading)
+            {
+                <Loading/>
+            }
+            <GenericList MyList="MyList">
+                <Body>
+                <tbody>
+                    @foreach (var item in MyList!)
+                    {
+                        <tr>
+                            <td><input class="form-check-input" type="checkbox" @bind="@item.Update" /></td>
+                            <td><InputText class="form-control" @bind-Value="@item.Name" /></td>
+                            <td><InputText class="form-control" @bind-Value="@item.Description" /></td>
+                            <td><InputText class="form-control" @bind-Value="@item.Contact" /></td>
+                            <td><InputText class="form-control" @bind-Value="@item.PhoneContact" /></td>
+                            <td style="width:300px"><InputText class="form-control" @bind-Value="@item.EmailContact" /></td>
+                            <td><input class="form-check-input" type="checkbox" @bind="@item.Contingency"/></td>
+                            <td><InputText class="form-control" @bind-Value="@item.EmailFromNotification" /></td>
+                            <td><InputText class="form-control" @bind-Value="@item.EmailFromNotificationPassword" /></td>
+                            <td><InputText class="form-control" @bind-Value="@item.EmailFromHost" /></td>
+                            <td><InputNumber class="form-control" @bind-Value="@item.EmailFromPort" /></td>
+                            <td><input class="form-check-input" type="checkbox" @bind="@item.EmailFromSsl" /></td>
+                            <td>@item.StrError</td>
+                            <td>
+                                <button @onclick=@(() => DeleteAsycn(item)) class="btn btn-danger"><i class="bi bi-trash" /></button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                </Body>
+            </GenericList>
+        </table>
+    </div>
+</div>
+
